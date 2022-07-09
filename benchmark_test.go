@@ -31,28 +31,42 @@ func BenchmarkSetAdd(b *testing.B) {
 	set = ss
 }
 
-// func BenchmarkListUnite(b *testing.B) {
-// }
+func BenchmarkListUnite(b *testing.B) {
+}
 
-// func BenchmarkSetUnite(b *testing.B) {
-// }
+func BenchmarkSetUnite(b *testing.B) {
+}
 
-func BenchmarkListContains(b *testing.B) {
+func BenchmarkListContainsHit(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		rndStr := RandStringRunes(3)
+		rndStr := RandStringRunes(2, "lower")
 		list.Contains(rndStr)
 	}
 }
 
-func BenchmarkSetContains(b *testing.B) {
+func BenchmarkSetContainsHit(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		rndStr := RandStringRunes(3)
+		rndStr := RandStringRunes(2, "lower")
 		set.Contains(rndStr)
 	}
 }
 
-// func BenchmarkListRemove(b *testing.B) {
-// }
+func BenchmarkListContainsNonHit(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		rndStr := RandStringRunes(2, "upper")
+		list.Contains(rndStr)
+	}
+}
 
-// func BenchmarkSetRemove(b *testing.B) {
-// }
+func BenchmarkSetContainsNonHit(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		rndStr := RandStringRunes(2, "upper")
+		set.Contains(rndStr)
+	}
+}
+
+func BenchmarkListRemove(b *testing.B) {
+}
+
+func BenchmarkSetRemove(b *testing.B) {
+}

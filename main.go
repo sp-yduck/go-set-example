@@ -2,38 +2,11 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 	"unsafe"
 )
 
 type StringList []string
 type StringSet map[string]struct{}
-
-// ABCDEFGHIJKLMNOPQRSTUVWXYZ
-var letterRunes = []rune("abcdefghijklmnopqrstuvwxyz")
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
-func RandStringRunes(n int) string {
-	b := make([]rune, n)
-	for i := range b {
-		b[i] = letterRunes[rand.Intn(len(letterRunes))]
-	}
-	return string(b)
-}
-
-func NextAlias(last string) string {
-	if last == "" {
-		return "a"
-	} else if last[len(last)-1] == 'z' {
-		return last[:len(last)-1] + "aa"
-	} else {
-		return last[:len(last)-1] + string(last[len(last)-1]+1)
-	}
-}
 
 func (ss *StringSet) Add(str string) *StringSet {
 	(*ss)[str] = struct{}{}
@@ -96,7 +69,7 @@ func NewStringSet(n int) *StringSet {
 	return &ss
 }
 
-func NewStringUnions(n int) (StringList, *StringSet) {
+func NewStringListSet(n int) (StringList, *StringSet) {
 	sl := make(StringList, n)
 	ss := make(StringSet, n)
 	last := ""
@@ -110,11 +83,11 @@ func NewStringUnions(n int) (StringList, *StringSet) {
 }
 
 func main() {
-	list, set := NewStringUnions(500 * 1000)
+	list, set := NewStringListSet(100 * 1000)
 	fmt.Printf("Length of List: %d, Length of Set: %d\n", len(list), len(*set))
 	fmt.Printf("Size  of  List: %d, Size  of  Set: %d\n", unsafe.Sizeof(list), unsafe.Sizeof(*set))
 
-	randomStr := RandStringRunes(3)
+	randomStr := RandStringRunes(3, "lower")
 	fmt.Printf("%s is contained in List: %t\n", randomStr, list.Contains(randomStr))
 	fmt.Printf("%s is contained in Set : %t\n", randomStr, set.Contains(randomStr))
 }
