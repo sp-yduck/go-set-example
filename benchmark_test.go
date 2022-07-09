@@ -4,24 +4,31 @@ import (
 	"testing"
 )
 
+const order = 100 * 1000
+
+var list StringList
+var set StringSet
+
 func BenchmarkListAdd(b *testing.B) {
 	var sl StringList
 	last := ""
-	for i := 0; i < int(b.N); i++ {
+	for i := 0; i < order; i++ {
 		next := NextAlias(last)
 		sl = append(sl, next)
 		last = next
 	}
+	list = sl
 }
 
 func BenchmarkSetAdd(b *testing.B) {
 	ss := make(StringSet)
 	last := ""
-	for i := 0; i < int(b.N); i++ {
+	for i := 0; i < order; i++ {
 		next := NextAlias(last)
 		ss.Add(next)
 		last = next
 	}
+	set = ss
 }
 
 // func BenchmarkListUnite(b *testing.B) {
@@ -31,20 +38,16 @@ func BenchmarkSetAdd(b *testing.B) {
 // }
 
 func BenchmarkListContains(b *testing.B) {
-	sl := NewStringList(10000)
-	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		rndStr := RandStringRunes(3)
-		sl.Contains(rndStr)
+		list.Contains(rndStr)
 	}
 }
 
 func BenchmarkSetContains(b *testing.B) {
-	ss := NewStringSet(10000)
-	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		rndStr := RandStringRunes(3)
-		ss.Contains(rndStr)
+		set.Contains(rndStr)
 	}
 }
 
