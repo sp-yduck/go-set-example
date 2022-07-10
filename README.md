@@ -17,3 +17,16 @@ Set : `map[a:{}, b:{}, c:{}]`
 ## Implementation (WIP)
 
 ## Benchmark (WIP)
+Benchmark codes are implemented in `benchmark_test.go`. You can use following commands.
+```
+go test -bench . -benchmem
+```
+
+## Test
+Test codes are implemented in `main_test.go`. You can use following commands.
+```
+go test . -v
+```
+
+## LICENSE
+MIT License. See [LICENSE](./LICENSE)
