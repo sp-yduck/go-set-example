@@ -139,7 +139,7 @@ func TestSetReomve(t *testing.T) {
 	ns2.Remove("a")
 	ans2 := make(StringSet, 1)
 	ans2["b"] = struct{}{}
-	if !reflect.DeepEqual(*ns2, ans2) {
+	if !reflect.DeepEqual(*ns2, ans2) && !ns1.Contains("b") {
 		t.Error(*ns2, ans2)
 	}
 }
