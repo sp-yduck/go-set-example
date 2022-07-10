@@ -123,3 +123,23 @@ func TestSetContains(t *testing.T) {
 		t.Error(ns5, "")
 	}
 }
+
+func TestListReomve(t *testing.T) {
+}
+
+func TestSetReomve(t *testing.T) {
+	ns1 := NewStringSet(1)
+	ns1.Remove("b") // should be nothing
+	ans1 := make(StringSet, 1)
+	ans1["a"] = struct{}{}
+	if !reflect.DeepEqual(*ns1, ans1) {
+		t.Error(*ns1, ans1)
+	}
+	ns2 := NewStringSet(2)
+	ns2.Remove("a")
+	ans2 := make(StringSet, 1)
+	ans2["b"] = struct{}{}
+	if !reflect.DeepEqual(*ns2, ans2) {
+		t.Error(*ns2, ans2)
+	}
+}
